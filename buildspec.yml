@@ -5,7 +5,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR.......
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 365521669583.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 365521669583.dkr.ecr.ap-south-1.amazonaws.com
       - # Replace with this to your repository URI
       - REPOSITORY_URL=365521669583.dkr.ecr.ap-south-1.amazonaws.com/demo
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_NUMBER)
