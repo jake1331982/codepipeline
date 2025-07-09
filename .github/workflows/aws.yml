@@ -1,0 +1,27 @@
+name: Test AWS OIDC
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write        # Permite obtener token OIDC para AWS
+  contents: read         # Para checkout
+
+jobs:
+  test-aws:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::025066267125:role/github-token-sts
+          aws-region: us-east-1
+
+      - name: List S3 buckets
+        run: aws s3 ls
