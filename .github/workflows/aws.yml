@@ -22,12 +22,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - name: Configure AWS credentials with OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::025066267125:role/github-token-sts
           aws-region: us-east-1
+  saludo:
+     run-on: ubuntu-latest
+     steps:
+        - name: Saludo y gracias
+          run : 'echo hola'
 
       - name: List S3 buckets
         run: aws s3 ls
