@@ -8,16 +8,17 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:  # Permite ejecución manual desde la interfaz de GitHub
+  workflow_dispatch:
   schedule:
-    - cron: '30 5,17 * * *'  # Ejecuta a las 5:00 AM UTC todos los días
+    - cron: '30 5,17 * * *'
+
 permissions:
-  id-token: write        # Permite obtener token OIDC para AWS
-  contents: read         # Para checkout
+  id-token: write
+  contents: read
 
 jobs:
   test-aws:
-    if: github.repository =='jake1331982/codepipeline'
+    if: github.repository == 'jake1331982/codepipeline'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -27,11 +28,10 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::025066267125:role/github-token-sts
           aws-region: us-east-1
-    saludo:
-     runs-on: ubuntu-latest
-     steps:
-        - name: Saludo y gracias
-          run : 'echo hola'
 
-      - name: List S3 buckets
-        run: aws s3 ls
+  saludo:
+    runs-on: ubuntu-latest
+    needs: test-aws
+    steps:
+      - name: Saludo y gracias
+        run: echo "hola"
