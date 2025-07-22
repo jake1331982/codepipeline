@@ -27,7 +27,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::025066267125:role/github-token-sts
           aws-region: us-east-1
-  saludo:
+    saludo:
      run-on: ubuntu-latest
      steps:
         - name: Saludo y gracias
