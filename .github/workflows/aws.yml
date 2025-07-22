@@ -4,15 +4,21 @@ on:
   push:
     branches:
       - main
-
+      - develop
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Permite ejecución manual desde la interfaz de GitHub
+  schedule:
+    - cron: '30 5,17 * * *'  # Ejecuta a las 5:00 AM UTC todos los días
 permissions:
   id-token: write        # Permite obtener token OIDC para AWS
   contents: read         # Para checkout
 
 jobs:
   test-aws:
+    if: github.repository =='jake1331982/codepipeline'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
